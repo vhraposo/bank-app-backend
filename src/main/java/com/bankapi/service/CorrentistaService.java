@@ -1,6 +1,7 @@
 package com.bankapi.service;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,9 @@ import com.bankapi.dto.NovoCorrentista;
 import com.bankapi.model.Conta;
 import com.bankapi.model.Correntista;
 import com.bankapi.repository.CorrentistaRepository;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 @Service
 public class CorrentistaService {
@@ -28,4 +32,15 @@ public class CorrentistaService {
         correntista.setConta(conta);
         repository.save(correntista);
     }
+
+    public Optional<Correntista> update(@Positive Integer id, @Valid Correntista correntista) {
+    return repository.findById(id)
+        .map(recordFound -> {
+            recordFound.setNome(correntista.getNome());
+            recordFound.setCpf(correntista.getCpf());
+            return repository.save(recordFound);
+        });
+}
+
+
 }

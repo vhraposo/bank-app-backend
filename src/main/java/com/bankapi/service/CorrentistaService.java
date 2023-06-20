@@ -24,6 +24,12 @@ public class CorrentistaService {
         Correntista correntista = new Correntista();
         correntista.setCpf(novoCorrentista.getCpf());
         correntista.setNome(novoCorrentista.getNome());
+        correntista.setCep(novoCorrentista.getCep());
+        correntista.setBairro(novoCorrentista.getBairro());
+        correntista.setCidade(novoCorrentista.getCidade());
+        correntista.setComplemento(novoCorrentista.getComplemento());
+        correntista.setLogradouro(novoCorrentista.getLogradouro());
+        correntista.setEstado(novoCorrentista.getEstado());
 
         //criando uma nova conta 
         Conta conta = new Conta();
@@ -38,6 +44,13 @@ public class CorrentistaService {
         .map(recordFound -> {
             recordFound.setNome(correntista.getNome());
             recordFound.setCpf(correntista.getCpf());
+            recordFound.setCep(correntista.getCep());
+            recordFound.setBairro(correntista.getBairro());
+            recordFound.setCidade(correntista.getCidade());
+            recordFound.setComplemento(correntista.getComplemento());
+            recordFound.setLogradouro(correntista.getLogradouro());
+            recordFound.setEstado(correntista.getEstado());
+
             return repository.save(recordFound);
         });
 }

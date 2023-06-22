@@ -47,7 +47,6 @@ public class MovimentacaoController {
     public void save(@RequestBody NovaMovimentacao movimentacao){
         service.save(movimentacao);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody @Valid Movimentacao movimentacao) {
     Optional<Movimentacao> optionalMovimentacao = service.update(id, movimentacao);
@@ -58,5 +57,5 @@ public class MovimentacaoController {
     } else {
         return ResponseEntity.notFound().build();
     }
-}
+    }
 }

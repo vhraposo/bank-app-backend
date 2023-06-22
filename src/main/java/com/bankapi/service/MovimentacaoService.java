@@ -23,12 +23,10 @@ public class MovimentacaoService {
     public void save(NovaMovimentacao novaMovimentacao){
         Movimentacao movimentacao = new Movimentacao();
 
-
        Double valor = novaMovimentacao.getValor();
        if(novaMovimentacao.getTipo() == MovimentacaoTipo.DESPESA){
            valor = valor * -1;
        }
-
 
         movimentacao.setDataHora(LocalDateTime.now());
         movimentacao.setDescricao(novaMovimentacao.getDescricao());
@@ -43,7 +41,6 @@ public class MovimentacaoService {
         }
         repository.save(movimentacao);
     }
-
     public Optional<Movimentacao> update(Integer id, Movimentacao novaMovimentacao) {
         Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
 
@@ -59,6 +56,3 @@ public class MovimentacaoService {
         }
     }
 }
-
-
-

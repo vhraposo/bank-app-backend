@@ -12,5 +12,4 @@ public class NovoCorrentista {
     private String bairro;
     private String cidade;
     private String estado;
-
 }

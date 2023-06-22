@@ -12,7 +12,6 @@ import com.bankapi.model.Usuario;
 import com.bankapi.repository.UsuarioRepository;
 
 
-
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,8 +26,6 @@ public class UsuarioController {
     if (usuario.getPassword().equals(userData.getPassword())) {
         return ResponseEntity.ok(usuario);
     }
-
     return (ResponseEntity<?>) ResponseEntity.internalServerError();
-}
-
+    }
 }

@@ -4,7 +4,6 @@ import com.bankapi.model.MovimentacaoTipo;
 
 import lombok.Data;
 
-
 @Data
 public class NovaMovimentacao {
     private String descricao;

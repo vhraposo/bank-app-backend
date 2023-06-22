@@ -1,6 +1,7 @@
 package com.bankapi.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,24 @@ public class MovimentacaoService {
         }
         repository.save(movimentacao);
     }
+
+    public Optional<Movimentacao> update(Integer id, Movimentacao novaMovimentacao) {
+        Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
+
+        if (optionalMovimentacao.isPresent()) {
+            Movimentacao existingMovimentacao = optionalMovimentacao.get();
+            existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
+            existingMovimentacao.setValor(novaMovimentacao.getValor());
+            // Atualize outros campos conforme necessário
+
+            repository.save(existingMovimentacao);
+
+            return Optional.of(existingMovimentacao);
+        } else {
+            return Optional.empty();
+        }
+    }
 }
+
+
+

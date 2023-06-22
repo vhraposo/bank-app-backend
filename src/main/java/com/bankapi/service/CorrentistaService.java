@@ -16,11 +16,12 @@ import jakarta.validation.constraints.Positive;
 
 @Service
 public class CorrentistaService {
+
     @Autowired
     private CorrentistaRepository repository;
-    public void save(NovoCorrentista novoCorrentista){
 
-        //criando um novo correntista
+    public void save(NovoCorrentista novoCorrentista) {
+        
         Correntista correntista = new Correntista();
         correntista.setCpf(novoCorrentista.getCpf());
         correntista.setNome(novoCorrentista.getNome());
@@ -31,7 +32,6 @@ public class CorrentistaService {
         correntista.setLogradouro(novoCorrentista.getLogradouro());
         correntista.setEstado(novoCorrentista.getEstado());
 
-        //criando uma nova conta 
         Conta conta = new Conta();
         conta.setSaldo(0.0);
         conta.setNumero(new Date().getTime());
@@ -40,20 +40,22 @@ public class CorrentistaService {
     }
 
     public Optional<Correntista> update(@Positive Integer id, @Valid Correntista correntista) {
-    return repository.findById(id)
-        .map(recordFound -> {
-            recordFound.setNome(correntista.getNome());
-            recordFound.setCpf(correntista.getCpf());
-            recordFound.setCep(correntista.getCep());
-            recordFound.setBairro(correntista.getBairro());
-            recordFound.setCidade(correntista.getCidade());
-            recordFound.setComplemento(correntista.getComplemento());
-            recordFound.setLogradouro(correntista.getLogradouro());
-            recordFound.setEstado(correntista.getEstado());
+        return repository.findById(id)
+                .map(recordFound -> {
+                    recordFound.setNome(correntista.getNome());
+                    recordFound.setCpf(correntista.getCpf());
+                    recordFound.setCep(correntista.getCep());
+                    recordFound.setBairro(correntista.getBairro());
+                    recordFound.setCidade(correntista.getCidade());
+                    recordFound.setComplemento(correntista.getComplemento());
+                    recordFound.setLogradouro(correntista.getLogradouro());
+                    recordFound.setEstado(correntista.getEstado());
 
-            return repository.save(recordFound);
-        });
-}
+                    return repository.save(recordFound);
+                });
+    }
 
-
+    public Optional<Correntista> findById(Integer id) {
+        return repository.findById(id);
+    }
 }

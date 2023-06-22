@@ -49,7 +49,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping("/{id}")
-public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody @Valid Movimentacao movimentacao) {
+    public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody @Valid Movimentacao movimentacao) {
     Optional<Movimentacao> optionalMovimentacao = service.update(id, movimentacao);
 
     if (optionalMovimentacao.isPresent()) {

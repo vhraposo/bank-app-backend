@@ -51,8 +51,6 @@ public class MovimentacaoService {
             Movimentacao existingMovimentacao = optionalMovimentacao.get();
             existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
             existingMovimentacao.setValor(novaMovimentacao.getValor());
-            // Atualize outros campos conforme necessário
-
             repository.save(existingMovimentacao);
 
             return Optional.of(existingMovimentacao);

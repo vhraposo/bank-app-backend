@@ -35,6 +35,14 @@ public class CorrentistaController {
         return repository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Correntista> findById(@PathVariable Integer id) {
+    return repository.findById(id)
+            .map(correntista -> ResponseEntity.ok().body(correntista))
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+
     @PostMapping
     public void save(@RequestBody NovoCorrentista correntista){
         service.save(correntista);

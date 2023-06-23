@@ -48,6 +48,9 @@ public class MovimentacaoService {
             Movimentacao existingMovimentacao = optionalMovimentacao.get();
             existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
             existingMovimentacao.setValor(novaMovimentacao.getValor());
+            existingMovimentacao.setTipo(novaMovimentacao.getTipo());
+            existingMovimentacao.setDataHora(novaMovimentacao.getDataHora());
+            existingMovimentacao.setIdConta(novaMovimentacao.getIdConta());
             repository.save(existingMovimentacao);
 
             return Optional.of(existingMovimentacao);

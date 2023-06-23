@@ -61,15 +61,15 @@ public class MovimentacaoController {
     public void save(@RequestBody NovaMovimentacao movimentacao){
         service.save(movimentacao);
     }
+    
     @PutMapping("/{id}")
     public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody @Valid Movimentacao movimentacao) {
-    Optional<Movimentacao> optionalMovimentacao = service.update(id, movimentacao);
-
-    if (optionalMovimentacao.isPresent()) {
-        Movimentacao updatedMovimentacao = optionalMovimentacao.get();
-        return ResponseEntity.ok().body(updatedMovimentacao);
-    } else {
-        return ResponseEntity.notFound().build();
-    }
+        Optional<Movimentacao> optionalMovimentacao = service.update(id, movimentacao);
+         if (optionalMovimentacao.isPresent()) {
+            Movimentacao updatedMovimentacao = optionalMovimentacao.get();
+            return ResponseEntity.ok().body(updatedMovimentacao);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

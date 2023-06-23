@@ -38,7 +38,14 @@ public class MovimentacaoController {
         return repository.findAll();
     }
 
-   @GetMapping("/{id}")
+    //find by id conta 
+    @GetMapping("/findacc/{idConta}")
+    public List<Movimentacao> findByIdConta(@PathVariable("idConta") Integer idConta){
+        return repository.findByIdConta(idConta);
+    }
+
+    //find by id movimentação
+    @GetMapping("/{id}")
     public ResponseEntity<Movimentacao> findById(@PathVariable("id") Integer id) {
     Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
 
@@ -49,12 +56,6 @@ public class MovimentacaoController {
         return ResponseEntity.notFound().build();
     }
     }
-
-    // @GetMapping("/{idConta}")
-    // public List<Movimentacao> findAll(@PathVariable("idConta") Integer idConta){
-    //     return repository.findByIdConta(idConta);
-    // }   
-    
 
     @PostMapping
     public void save(@RequestBody NovaMovimentacao movimentacao){

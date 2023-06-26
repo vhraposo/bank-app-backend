@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.bankapi.dto.NovoCorrentista;
 import com.bankapi.model.Conta;
@@ -12,6 +13,7 @@ import com.bankapi.model.Correntista;
 import com.bankapi.repository.CorrentistaRepository;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Service
@@ -58,4 +60,14 @@ public class CorrentistaService {
     public Optional<Correntista> findById(Integer id) {
         return repository.findById(id);
     }
+
+    public boolean delete(Integer id) {
+    return repository.findById(id)
+            .map(recordFound -> {
+                repository.deleteById(id);
+                return true;
+            })
+            .orElse(false);
+    }
+
 }

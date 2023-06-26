@@ -1,5 +1,7 @@
 package com.bankapi.dto;
 
+import java.time.LocalDateTime;
+
 import com.bankapi.model.MovimentacaoTipo;
 
 import lombok.Data;
@@ -10,4 +12,5 @@ public class NovaMovimentacao {
     private Double valor;
     private MovimentacaoTipo tipo;
     private Integer idConta;
+    private LocalDateTime dataHora;
 }

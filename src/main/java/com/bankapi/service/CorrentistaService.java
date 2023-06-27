@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.bankapi.dto.NovoCorrentista;
 import com.bankapi.model.Conta;
@@ -13,7 +12,6 @@ import com.bankapi.model.Correntista;
 import com.bankapi.repository.CorrentistaRepository;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Service

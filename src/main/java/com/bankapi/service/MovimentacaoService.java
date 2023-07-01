@@ -42,29 +42,25 @@ public class MovimentacaoService {
         repository.save(movimentacao);
     }
     public Optional<Movimentacao> update(Integer id, Movimentacao novaMovimentacao) {
-    Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
+        Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
 
-    if (optionalMovimentacao.isPresent()) {
-        Movimentacao existingMovimentacao = optionalMovimentacao.get();
-        existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
-        existingMovimentacao.setValor(novaMovimentacao.getValor());
-        existingMovimentacao.setTipo(novaMovimentacao.getTipo());
-        existingMovimentacao.setDataHora(novaMovimentacao.getDataHora());
-        existingMovimentacao.setIdConta(novaMovimentacao.getIdConta());
+        if (optionalMovimentacao.isPresent()) {
+            Movimentacao existingMovimentacao = optionalMovimentacao.get();
+            existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
+            existingMovimentacao.setValor(novaMovimentacao.getValor());
+            existingMovimentacao.setTipo(novaMovimentacao.getTipo());
+            existingMovimentacao.setDataHora(novaMovimentacao.getDataHora());
+            existingMovimentacao.setIdConta(novaMovimentacao.getIdConta());
 
-        Correntista correntista = correntistaRepository.findById(existingMovimentacao.getIdConta()).orElse(null);
-        if (correntista != null) {
-            correntista.getConta().setSaldo(novaMovimentacao.getValor());
-            correntistaRepository.save(correntista);
+            Correntista correntista = correntistaRepository.findById(existingMovimentacao.getIdConta()).orElse(null);
+            if (correntista != null) {
+                correntista.getConta().setSaldo(novaMovimentacao.getValor());
+                correntistaRepository.save(correntista);
+            }
+            repository.save(existingMovimentacao);
+            return Optional.of(existingMovimentacao);
+            } else {
+            return Optional.empty();
         }
-        repository.save(existingMovimentacao);
-
-        return Optional.of(existingMovimentacao);
-    } else {
-        return Optional.empty();
     }
-}
-
-
-
 }

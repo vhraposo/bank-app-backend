@@ -31,7 +31,7 @@ public class MovimentacaoService {
         movimentacao.setDescricao(novaMovimentacao.getDescricao());
         movimentacao.setIdConta(novaMovimentacao.getIdConta());
         movimentacao.setTipo(novaMovimentacao.getTipo());
-        movimentacao.setValor(valor);
+        movimentacao.setValor(novaMovimentacao.getValor());
        
 
         Correntista correntista = correntistaRepository.findById(novaMovimentacao.getIdConta()).orElse(null);
@@ -42,20 +42,29 @@ public class MovimentacaoService {
         repository.save(movimentacao);
     }
     public Optional<Movimentacao> update(Integer id, Movimentacao novaMovimentacao) {
-        Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
+    Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
 
-        if (optionalMovimentacao.isPresent()) {
-            Movimentacao existingMovimentacao = optionalMovimentacao.get();
-            existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
-            existingMovimentacao.setValor(novaMovimentacao.getValor());
-            existingMovimentacao.setTipo(novaMovimentacao.getTipo());
-            existingMovimentacao.setDataHora(novaMovimentacao.getDataHora());
-            existingMovimentacao.setIdConta(novaMovimentacao.getIdConta());
-            repository.save(existingMovimentacao);
+    if (optionalMovimentacao.isPresent()) {
+        Movimentacao existingMovimentacao = optionalMovimentacao.get();
+        existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
+        existingMovimentacao.setValor(novaMovimentacao.getValor());
+        existingMovimentacao.setTipo(novaMovimentacao.getTipo());
+        existingMovimentacao.setDataHora(novaMovimentacao.getDataHora());
+        existingMovimentacao.setIdConta(novaMovimentacao.getIdConta());
 
-            return Optional.of(existingMovimentacao);
-        } else {
-            return Optional.empty();
+        Correntista correntista = correntistaRepository.findById(existingMovimentacao.getIdConta()).orElse(null);
+        if (correntista != null) {
+            correntista.getConta().setSaldo(novaMovimentacao.getValor());
+            correntistaRepository.save(correntista);
         }
+        repository.save(existingMovimentacao);
+
+        return Optional.of(existingMovimentacao);
+    } else {
+        return Optional.empty();
     }
+}
+
+
+
 }

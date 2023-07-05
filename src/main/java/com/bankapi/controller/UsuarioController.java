@@ -19,7 +19,7 @@ import com.bankapi.utils.JwtUtil;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://fxbank.vercel.app"})
 public class UsuarioController {
 
     @Autowired

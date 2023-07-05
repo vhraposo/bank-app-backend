@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/movimentacoes")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://fxbank.vercel.app"})
 public class MovimentacaoController {
     
     @Autowired

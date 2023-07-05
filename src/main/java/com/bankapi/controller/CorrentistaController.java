@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/correntistas")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://fxbank.vercel.app"})
 public class CorrentistaController {
     
     @Autowired

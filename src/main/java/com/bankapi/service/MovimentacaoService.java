@@ -43,9 +43,18 @@ public class MovimentacaoService {
     }
     public Optional<Movimentacao> update(Integer id, Movimentacao novaMovimentacao) {
         Optional<Movimentacao> optionalMovimentacao = repository.findById(id);
+        Double diferenca = null;
 
         if (optionalMovimentacao.isPresent()) {
             Movimentacao existingMovimentacao = optionalMovimentacao.get();
+            if(novaMovimentacao.getTipo() == existingMovimentacao.getTipo()){
+                diferenca =  novaMovimentacao.getValor() - existingMovimentacao.getValor();
+                diferenca *= -1;
+            } else if (novaMovimentacao.getTipo() == MovimentacaoTipo.DESPESA){
+                diferenca = (novaMovimentacao.getValor() + existingMovimentacao.getValor()) * -1;
+            } else {
+                diferenca = novaMovimentacao.getValor() + existingMovimentacao.getValor();
+            }
             existingMovimentacao.setDescricao(novaMovimentacao.getDescricao());
             existingMovimentacao.setValor(novaMovimentacao.getValor());
             existingMovimentacao.setTipo(novaMovimentacao.getTipo());
@@ -54,7 +63,7 @@ public class MovimentacaoService {
 
             Correntista correntista = correntistaRepository.findById(existingMovimentacao.getIdConta()).orElse(null);
             if (correntista != null) {
-                correntista.getConta().setSaldo(novaMovimentacao.getValor());
+                correntista.getConta().setSaldo(correntista.getConta().getSaldo() + diferenca);
                 correntistaRepository.save(correntista);
             }
             repository.save(existingMovimentacao);
